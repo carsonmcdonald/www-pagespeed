@@ -1,0 +1,6 @@
+Revision history for Perl extension WWW::PageSpeed.
+
+1.0  Sun Aug  7 2011
+	- original version; created by h2xs 1.23 with options
+		-X -n WWW::PageSpeed
+

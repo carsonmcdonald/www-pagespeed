@@ -1,0 +1,71 @@
+WWW-PageSpeed version 1.0
+==========================
+
+SYNOPSIS
+
+  use strict;
+  use WWW::PageSpeed;
+
+  my $key = "Your Google PageSpeed API Key";
+  my $pagespeed = WWW::PageSpeed->new(key => $key);
+  # You can also specify rules to use
+  # my $pagespeed = WWW::PageSpeed->new(key => $key, rules => ['AvoidBadRequests', 'MinifyJavaScript']);
+  # Or you can specify a strategy to use
+  # my $pagespeed = WWW::PageSpeed->new(key => $key, strategy => 'mobile');
+
+  my $psresults = $pagespeed->test({url => 'http://www.google.com/'});
+  # You can also specify rules in the test request
+  # my $psresults = $pagespeed->test({url => 'http://www.google.com/', rules => ['AvoidBadRequests', 'MinifyJavaScript']});
+
+  for my $rulename (keys %{$psresults->{"formattedResults"}->{"ruleResults"}})
+  {
+    my $ruleresult = $psresults->{"formattedResults"}->{"ruleResults"}->{$rulename};
+
+    print "Rule $rulename: Impact=$ruleresult->{'ruleImpact'} Score=$ruleresult->{'ruleScore'}\n";
+  }
+
+DESCRIPTION
+
+WWW::PageSpeed - Perl wrapper around L<the Google PageSpeed online API|https://code.google.com/apis/pagespeedonline/>
+
+Before using this wrapper read L<the getting started guide|https://code.google.com/apis/pagespeedonline/v1/getting_started.html>.
+
+The API requires a key that you will find out about in the getting started guide. After you L<create an API key|https://code.google.com/apis/pagespeedonline/v1/getting_started.html#getaccount>
+you can run the tests by sticking the key into the environment variable PAGESPEED_APIKEY.
+
+Currently there are two supported strategies: 'desktop' or 'mobile'
+
+The easiest way to get the list of supported rules is to run once without any rule
+retrictions and print out the results.
+
+Google supports a number of different languages, you can see the L<supported locals|https://code.google.com/speed/page-speed/docs/languages.html>
+for a list.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+Note: Tests will fail without a API key in your environment. Add the
+key to the environment variable PAGESPEED_APIKEY.
+
+DEPENDENCIES
+
+JSON
+LWP
+URI
+URI::QueryParam
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2011 by Carson McDonald
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+

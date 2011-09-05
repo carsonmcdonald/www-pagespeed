@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/WWW-PageSpeed.t
+lib/WWW/PageSpeed.pm
